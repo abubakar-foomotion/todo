@@ -32,7 +32,7 @@ export default function Todo() {
   function updateTodo(index:number) : void {
     setTodoInput(true);
   }
-   const { items } = useItemsStore();
+   const { items ,deleteItem} = useItemsStore();
   // COMPONENT JSX
   return (
     <div>
@@ -50,15 +50,16 @@ export default function Todo() {
           ))}
         </div>
       )} */}
+      {/* NEWER VERSION */}
       {items.length > 0 && (
         <div>
-          {items.map(({ heading, description }, index) => (
-            <div className="border border-blue-400 p-2 m-4" key={index}>
+          {items.map(({ heading, description , id}) => (
+            <div className="border border-blue-400 p-2 m-4" key={id}>
             
               <h3>{heading}</h3>
               <p>{description}</p>
-              <p onClick={()=> updateTodo(index)}>UPDATE.!</p>
-              <span onClick={() => deleteTodo(index)}>&#10060;</span>
+              <p onClick={()=> updateTodo(id)}>UPDATE.!</p>
+              <span onClick={() => deleteItem(id)}>&#10060;</span>
             </div>
           ))}
         </div>
