@@ -15,14 +15,6 @@ export default function Todo() {
   const [heading, setHeading] = useState<string>("");
   const [description, setDescription] = useState<string>("");
 
-  //update todo function
-  function updateTodo(index : number, heading : string, description : string) : void {
-    setHeading(heading);
-    setDescription(description);
-    deleteTodo(index);
-    addTodo();
-  }
-
   //EVENT HANDLER
   function addTodo(): void {
     setShowButton(false);
@@ -33,6 +25,11 @@ export default function Todo() {
   function deleteTodo(index : number) : void {
     const newTodos = todos.filter(todo => todos.indexOf(todo) !== index);
     setTodos(newTodos);
+  }
+
+  //UPDATE TODO FUNCTION
+  function updateTodo(index:number) : void {
+    setTodoInput(true);
   }
 
   // COMPONENT JSX
@@ -46,7 +43,7 @@ export default function Todo() {
             
               <h3>{heading}</h3>
               <p>{description}</p>
-              <p onClick={()=> updateTodo(index, heading, description)}>UPDATE.!</p>
+              <p onClick={()=> updateTodo(index)}>UPDATE.!</p>
               <span onClick={() => deleteTodo(index)}>&#10060;</span>
             </div>
           ))}
