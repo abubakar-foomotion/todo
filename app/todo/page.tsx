@@ -2,6 +2,7 @@
 
 import TodoInput from "@/components/TodoInput";
 import { useState } from "react";
+import { useItemsStore } from "@/lib/store/todoStore";
 
 interface TodoObj {
   heading: string;
@@ -31,14 +32,27 @@ export default function Todo() {
   function updateTodo(index:number) : void {
     setTodoInput(true);
   }
-
+   const { items } = useItemsStore();
   // COMPONENT JSX
   return (
     <div>
       <h1 className="bg-black-200">this is todo page..!!</h1>
-      {todos.length > 0 && (
+      {/* {todos.length > 0 && (
         <div>
           {todos.map(({ heading, description }, index) => (
+            <div className="border border-blue-400 p-2 m-4" key={index}>
+            
+              <h3>{heading}</h3>
+              <p>{description}</p>
+              <p onClick={()=> updateTodo(index)}>UPDATE.!</p>
+              <span onClick={() => deleteTodo(index)}>&#10060;</span>
+            </div>
+          ))}
+        </div>
+      )} */}
+      {items.length > 0 && (
+        <div>
+          {items.map(({ heading, description }, index) => (
             <div className="border border-blue-400 p-2 m-4" key={index}>
             
               <h3>{heading}</h3>

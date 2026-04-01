@@ -1,6 +1,8 @@
 "use client";
 
 import { Dispatch, SetStateAction, useRef } from "react";
+import { useItemsStore } from "@/lib/store/todoStore";
+
 interface TodoInput1props {
   addButtonFunction: Dispatch<SetStateAction<boolean>>;
   todoInputBoxDispaly: Dispatch<SetStateAction<boolean>>;
@@ -16,6 +18,7 @@ export default function TodoInput({
   addTodoFunction,
 }: TodoInput1props) {
   //START OF THE FUNCTION
+  const { addItem } = useItemsStore();
   const headingRef = useRef<HTMLInputElement>(null);
   const descriptionRef = useRef<HTMLInputElement>(null);
 
@@ -24,10 +27,15 @@ export default function TodoInput({
     e.preventDefault();
     const heading = headingRef.current?.value ?? "";
     const description = descriptionRef.current?.value ?? "";
-    addTodoFunction((prev: Todo[]) => [
-      ...prev,
-      { heading: heading, description: description },
-    ]);
+    // addTodoFunction((prev: Todo[]) => [
+    //   ...prev,
+    //   { heading: heading, description: description },
+    // ]);
+    addItem({
+      id: Date.now(),
+      heading : heading,
+      description:description,
+    });
     todoInputBoxDispaly(false);
     addButtonFunction(true);
   }
