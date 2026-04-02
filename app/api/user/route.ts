@@ -1,6 +1,7 @@
 import { addUser, getAllUsers } from "@/db/queries/user";
 import { NextResponse } from "next/server";
 
+// GET /api/user
 export async function GET() {
   const allUsers = await getAllUsers();
   return NextResponse.json(allUsers);

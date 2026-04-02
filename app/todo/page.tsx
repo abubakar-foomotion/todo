@@ -5,12 +5,10 @@ import { useState } from "react";
 import { useItemsStore } from "@/lib/store/todoStore";
 import { uuid } from "drizzle-orm/gel-core";
 
-
-
 export default function Todo() {
   const [showButton, setShowButton] = useState<boolean>(true);
   const [showTodoInput, setTodoInput] = useState<boolean>(false);
- 
+
   const [udpdateId, setUdpateId] = useState<number>(-1);
 
   //EVENT HANDLER
@@ -19,7 +17,6 @@ export default function Todo() {
     setTodoInput(true);
   }
 
- 
   const { items, deleteItem, addItem, updateItem } = useItemsStore();
   // COMPONENT JSX
   return (
@@ -68,11 +65,6 @@ export default function Todo() {
         <TodoInput
           description=""
           heading=""
-          // onClickFunction={(head, descrip) => (
-          //   addItem({ id: Date.now(), heading: head, description: descrip }),
-          //   setShowButton(true),
-          //   setTodoInput(false)
-          // )}
           onClickFunction={(head, descrip) => {
             addItem({ id: Date.now(), heading: head, description: descrip });
             setShowButton(true);
