@@ -1,4 +1,4 @@
-import { addTodo, deleteTodo ,getAllTodos} from "@/db/queries/todo";
+import { addTodo, deleteTodo ,getAllTodos, updateTodo} from "@/db/queries/todo";
 import { db } from "@/db/index";
 import { todos } from "@/db/schema";
 import { NextResponse , NextRequest} from "next/server";
@@ -20,4 +20,10 @@ export async function DELETE(request: NextRequest) {
     const { id } = await request.json();
     await deleteTodo(id);
     return new Response("Todo deleted successfully");
+}
+
+export async function PUT(request: NextRequest) {
+    const { id, heading, description } = await request.json();
+    await updateTodo(id, heading, description);
+    return new Response("Todo updated successfully");
 }

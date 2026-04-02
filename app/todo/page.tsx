@@ -43,8 +43,18 @@ export default function Todo() {
                   key={id}
                   heading={heading}
                   description={description}
-                  onClickFunction={(head, descrip) => {
-
+                  onClickFunction={async(head, descrip) => {
+                    await fetch("/api/todo", {
+                      method: "PUT",
+                      headers: {
+                        "Content-Type": "application/json",
+                      },
+                      body: JSON.stringify({
+                        id: id,
+                        heading: head,
+                        description: descrip,
+                      }),
+                    });
                     updateItem(id, { heading: head, description: descrip });
                     setUdpateId(-1);
                   }}
