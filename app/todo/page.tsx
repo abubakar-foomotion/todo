@@ -1,14 +1,16 @@
 "use client";
 
 import TodoInput from "@/components/TodoInput";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useItemsStore } from "@/lib/store/todoStore";
 import { uuid } from "drizzle-orm/gel-core";
+import { getAllTodos } from "@/services/todos";
 
 export default function Todo() {
+
+  //STATES
   const [showButton, setShowButton] = useState<boolean>(true);
   const [showTodoInput, setTodoInput] = useState<boolean>(false);
-
   const [udpdateId, setUdpateId] = useState<number>(-1);
 
   //EVENT HANDLER
@@ -16,8 +18,17 @@ export default function Todo() {
     setShowButton(false);
     setTodoInput(true);
   }
+  //ACCESSING THE TODO STORE
+  const { items, deleteItem, addItem, updateItem,setItems } = useItemsStore();
 
-  const { items, deleteItem, addItem, updateItem } = useItemsStore();
+  //GETTING THE TODO ITEMS FROM DB ON RENDER
+  useEffect(() => {
+    async function fetchData() {
+      const res =  await getAllTodos();
+      setItems(res);
+    }
+    fetchData();
+  },[]);
   // COMPONENT JSX
   return (
     <div>
