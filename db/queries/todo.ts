@@ -1,8 +1,8 @@
 import {db} from '../index';
 import {todos} from "../schema";
 
-export function getAllTodos(userId : number) {
-
+export async function getAllTodos() {
+    return await db.select().from(todos);
 }
 
 export async function addTodo() {
