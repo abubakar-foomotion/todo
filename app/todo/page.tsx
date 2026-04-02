@@ -76,7 +76,16 @@ export default function Todo() {
         <TodoInput
           description=""
           heading=""
-          onClickFunction={(head, descrip) => {
+          onClickFunction={async(head, descrip) => {
+            //TODO: REPLACE THE HARDCODED USERID WITH DYNAMIC ONE
+            const userId = "d94ae1d3-8f9a-4699-a761-b4eabee29a48";
+            await fetch("/api/todo", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({userId:userId, heading: head, description: descrip }),
+            });
             addItem({ id: Date.now(), heading: head, description: descrip });
             setShowButton(true);
             setTodoInput(false);
