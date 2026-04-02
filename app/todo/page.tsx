@@ -7,7 +7,6 @@ import { uuid } from "drizzle-orm/gel-core";
 import { getAllTodos } from "@/services/todos";
 
 export default function Todo() {
-
   //STATES
   const [showButton, setShowButton] = useState<boolean>(true);
   const [showTodoInput, setTodoInput] = useState<boolean>(false);
@@ -19,16 +18,16 @@ export default function Todo() {
     setTodoInput(true);
   }
   //ACCESSING THE TODO STORE
-  const { items, deleteItem, addItem, updateItem,setItems } = useItemsStore();
+  const { items, deleteItem, addItem, updateItem, setItems } = useItemsStore();
 
   //GETTING THE TODO ITEMS FROM DB ON RENDER
   useEffect(() => {
     async function fetchData() {
-      const res =  await getAllTodos();
+      const res = await getAllTodos();
       setItems(res);
     }
     fetchData();
-  },[]);
+  }, []);
   // COMPONENT JSX
   return (
     <div>
@@ -44,10 +43,11 @@ export default function Todo() {
                   key={id}
                   heading={heading}
                   description={description}
-                  onClickFunction={(head, descrip) => (
-                    updateItem(id, { heading: head, description: descrip }),
-                    setUdpateId(-1)
-                  )}
+                  onClickFunction={(head, descrip) => {
+
+                    updateItem(id, { heading: head, description: descrip });
+                    setUdpateId(-1);
+                  }}
                 />
               );
             }
@@ -56,7 +56,18 @@ export default function Todo() {
                 <h3>{heading}</h3>
                 <p>{description}</p>
                 <p onClick={() => setUdpateId(id)}>UPDATE.!</p>
-                <span onClick={() => deleteItem(id)}>&#10060;</span>
+                <span onClick={async () => {
+                  await fetch("/api/todo", {
+                    method: "DELETE",
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                      id: id,
+                    }),
+                  }); 
+                  deleteItem(id);
+                  }}>&#10060;</span>
               </div>
             );
           })}
@@ -76,7 +87,7 @@ export default function Todo() {
         <TodoInput
           description=""
           heading=""
-          onClickFunction={async(head, descrip) => {
+          onClickFunction={async (head, descrip) => {
             //TODO: REPLACE THE HARDCODED USERID WITH DYNAMIC ONE
             const userId = "d94ae1d3-8f9a-4699-a761-b4eabee29a48";
             await fetch("/api/todo", {
@@ -84,7 +95,11 @@ export default function Todo() {
               headers: {
                 "Content-Type": "application/json",
               },
-              body: JSON.stringify({userId:userId, heading: head, description: descrip }),
+              body: JSON.stringify({
+                userId: userId,
+                heading: head,
+                description: descrip,
+              }),
             });
             addItem({ id: Date.now(), heading: head, description: descrip });
             setShowButton(true);
