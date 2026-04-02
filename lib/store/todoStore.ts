@@ -1,7 +1,7 @@
 import { create } from "zustand";
 
 export interface Item {
-  id: number;
+  id: string;
   heading: string;
   description: string;
 }
@@ -11,8 +11,8 @@ interface ItemsState {
 
   // actions
   addItem: (item: Item) => void;
-  updateItem: (id: number, updatedItem: Partial<Item>) => void;
-  deleteItem: (id: number) => void;
+  updateItem: (id: string, updatedItem: Partial<Item>) => void;
+  deleteItem: (id: string) => void;
   setItems: (items: Item[]) => void;
 }
 

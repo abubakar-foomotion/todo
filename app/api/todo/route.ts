@@ -6,10 +6,10 @@ import { NextResponse , NextRequest} from "next/server";
 // POST /api/todo
 export async function POST(request : NextRequest) {
     const {userId, heading, description} = await request.json();
-    await addTodo(userId,heading, description);
-    return new Response("Todo added successfully");
+    const insertedObj = await addTodo(userId,heading, description);
+    return NextResponse.json(insertedObj);
 }
-``
+
 // GET /api/todo
 export async function GET() {
     const result = await getAllTodos();

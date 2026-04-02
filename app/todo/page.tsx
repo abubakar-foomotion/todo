@@ -4,13 +4,13 @@ import TodoInput from "@/components/TodoInput";
 import { useEffect, useState } from "react";
 import { useItemsStore } from "@/lib/store/todoStore";
 import { uuid } from "drizzle-orm/gel-core";
-import { getAllTodos } from "@/services/todos";
+import { getAllTodos, updateTodo } from "@/services/todos";
 
 export default function Todo() {
   //STATES
   const [showButton, setShowButton] = useState<boolean>(true);
   const [showTodoInput, setTodoInput] = useState<boolean>(false);
-  const [udpdateId, setUdpateId] = useState<number>(-1);
+  const [udpdateId, setUdpateId] = useState<string>("");
 
   //EVENT HANDLER
   function addTodo(): void {
@@ -44,7 +44,8 @@ export default function Todo() {
                   heading={heading}
                   description={description}
                   onClickFunction={async(head, descrip) => {
-                    await fetch("/api/todo", {
+                    // updateTodo(id,head,descrip);
+                      await fetch("/api/todo", {
                       method: "PUT",
                       headers: {
                         "Content-Type": "application/json",
@@ -56,7 +57,7 @@ export default function Todo() {
                       }),
                     });
                     updateItem(id, { heading: head, description: descrip });
-                    setUdpateId(-1);
+                    setUdpateId("");
                   }}
                 />
               );
@@ -100,18 +101,21 @@ export default function Todo() {
           onClickFunction={async (head, descrip) => {
             //TODO: REPLACE THE HARDCODED USERID WITH DYNAMIC ONE
             const userId = "d94ae1d3-8f9a-4699-a761-b4eabee29a48";
-            await fetch("/api/todo", {
+            //it should return an id of the added todo
+            console.log("before adding todo,,,,,,,...........>!!!!!!");
+            const result= await fetch("/api/todo", {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",
               },
               body: JSON.stringify({
-                userId: userId,
+                userId : userId,
                 heading: head,
                 description: descrip,
               }),
             });
-            addItem({ id: Date.now(), heading: head, description: descrip });
+            const res = await result.json();
+            addItem({ id: res.id, heading: head, description: descrip });
             setShowButton(true);
             setTodoInput(false);
           }}
