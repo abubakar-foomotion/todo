@@ -26,6 +26,7 @@ export default function Welcome() {
     } else {
       // sign up logic
       console.log("SIGN UP LOGIC");
+      
     }
   }
 
