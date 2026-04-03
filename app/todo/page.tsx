@@ -32,7 +32,9 @@ export default function Todo() {
   // COMPONENT JSX
   return (
     <div>
-      <h1 className="bg-black-200">this is todo page..!!</h1>
+      <h1 className="font-bold text-center text-2xl">
+        this is todo Application..!!
+      </h1>
 
       {/* NEWER VERSION */}
       {items.length > 0 && (
@@ -44,9 +46,9 @@ export default function Todo() {
                   key={id}
                   heading={heading}
                   description={description}
-                  onClickFunction={async(head, descrip) => {
+                  onClickFunction={async (head, descrip) => {
                     // updateTodo(id,head,descrip);
-                      await fetch("/api/todo", {
+                    await fetch("/api/todo", {
                       method: "PUT",
                       headers: {
                         "Content-Type": "application/json",
@@ -64,22 +66,34 @@ export default function Todo() {
               );
             }
             return (
-              <div className="border border-blue-400 p-2 m-4" key={id}>
+              <div
+                className="border border-gray-400 rounded-lg p-2 m-4 bg-gray-200"
+                key={id}
+              >
                 <h3>{heading}</h3>
                 <p>{description}</p>
-                <p onClick={() => setUdpateId(id)}>UPDATE.!</p>
-                <span onClick={async () => {
-                  await fetch("/api/todo", {
-                    method: "DELETE",
-                    headers: {
-                      "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({
-                      id: id,
-                    }),
-                  }); 
-                  deleteItem(id);
-                  }}>&#10060;</span>
+                <p
+                  onClick={() => setUdpateId(id)}
+                  className="border rounded-md mt-4 p-1 lg:ml-4 lg:w-20"
+                >
+                  UPDATE.!
+                </p>
+                <span
+                  onClick={async () => {
+                    await fetch("/api/todo", {
+                      method: "DELETE",
+                      headers: {
+                        "Content-Type": "application/json",
+                      },
+                      body: JSON.stringify({
+                        id: id,
+                      }),
+                    });
+                    deleteItem(id);
+                  }}
+                >
+                  &#10060;
+                </span>
               </div>
             );
           })}
@@ -104,13 +118,13 @@ export default function Todo() {
             // const userId = "d94ae1d3-8f9a-4699-a761-b4eabee29a48";
             //it should return an id of the added todo
             console.log("before adding todo,,,,,,,...........>!!!!!!");
-            const result= await fetch("/api/todo", {
+            const result = await fetch("/api/todo", {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",
               },
               body: JSON.stringify({
-                userId : userId,
+                userId: userId,
                 heading: head,
                 description: descrip,
               }),
