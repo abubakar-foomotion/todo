@@ -1,6 +1,7 @@
 "use client";
 
 import TodoInput from "@/components/TodoInput";
+import TodoCard from "@/components/TodoCard";
 import { useEffect, useState } from "react";
 import { useItemsStore } from "@/lib/store/todoStore";
 import { getAllTodos, updateTodo, addTodoApiCall } from "@/services/todos";
@@ -55,27 +56,14 @@ export default function Todo() {
               );
             }
             return (
-              <div
-                className="border border-gray-400 rounded-lg p-2 bg-gray-200 "
+              <TodoCard
                 key={id}
-              >
-                <h3>{heading}</h3>
-                <p>{description}</p>
-                <p
-                  onClick={() => setUdpateId(id)}
-                  className="border rounded-md mt-4 p-1 lg:ml-4 lg:w-20"
-                >
-                  UPDATE
-                </p>
-                <span
-                  onClick={async () => {
-                    //
-                    deleteItem(id);
-                  }}
-                >
-                  &#10060;
-                </span>
-              </div>
+                id={id}
+                heading={heading}
+                description={description}
+                deleteFunction={(id: string) => deleteItem(id)}
+                updateFunction={(id: string) => setUdpateId(id)}
+              />
             );
           })}
         </div>
