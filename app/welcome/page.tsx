@@ -66,11 +66,11 @@ export default function Welcome() {
   }
 
   return (
-    <div>
+    <div className="p-4 m-4 border rounded-lg bg-gray-200">
       <h1 className="text-center">
         {signIn === true ? "sign in" : "sign up"}{" "}
       </h1>
-      <div>
+      <div className="px-4 py-2 flex flex-col justify-center items-center mt-4 mb-4 lg:flex-row">
         <label htmlFor="email" className="m-4">
           Enter Email
         </label>
@@ -81,6 +81,7 @@ export default function Welcome() {
           id="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          className="p-1 border rounded-md"
         />
         <label htmlFor="name" className="m-4">
           Enter Name
@@ -92,8 +93,9 @@ export default function Welcome() {
           required
           value={name}
           onChange={(e) => setName(e.target.value)}
+          className="border p-1 rounded-md"
         />
-        <button className="m-4" type="button" onClick={handleSignInAndSignUp}>
+        <button className="border rounded-md mt-4 p-1 lg:ml-4 lg:w-20" type="button" onClick={handleSignInAndSignUp}>
           Enter
         </button>
       </div>
