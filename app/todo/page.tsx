@@ -3,7 +3,7 @@
 import TodoInput from "@/components/TodoInput";
 import { useEffect, useState } from "react";
 import { useItemsStore } from "@/lib/store/todoStore";
-import { getAllTodos, updateTodo } from "@/services/todos";
+import { getAllTodos, updateTodo, addTodoApiCall } from "@/services/todos";
 import { useUserStore } from "@/lib/store/userStore";
 
 export default function Todo() {
@@ -47,17 +47,7 @@ export default function Todo() {
                   heading={heading}
                   description={description}
                   onClickFunction={async (head, descrip) => {
-                    await fetch("/api/todo", {
-                      method: "PUT",
-                      headers: {
-                        "Content-Type": "application/json",
-                      },
-                      body: JSON.stringify({
-                        id: id,
-                        heading: head,
-                        description: descrip,
-                      }),
-                    });
+                    await updateTodo(id, head, descrip);
                     updateItem(id, { heading: head, description: descrip });
                     setUdpateId("");
                   }}
@@ -79,15 +69,7 @@ export default function Todo() {
                 </p>
                 <span
                   onClick={async () => {
-                    await fetch("/api/todo", {
-                      method: "DELETE",
-                      headers: {
-                        "Content-Type": "application/json",
-                      },
-                      body: JSON.stringify({
-                        id: id,
-                      }),
-                    });
+                    //
                     deleteItem(id);
                   }}
                 >
@@ -101,7 +83,11 @@ export default function Todo() {
 
       {/* //BUTTON TO SHOW TODO INPUT */}
       {showButton && (
-        <button type="button" onClick={addTodo} className="border rounded-md mt-4 p-1 lg:ml-4 lg:w-24">
+        <button
+          type="button"
+          onClick={addTodo}
+          className="border rounded-md mt-4 p-1 lg:ml-4 lg:w-24"
+        >
           {" "}
           + Add Task
         </button>
@@ -113,18 +99,7 @@ export default function Todo() {
           description=""
           heading=""
           onClickFunction={async (head, descrip) => {
-            const result = await fetch("/api/todo", {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({
-                userId: userId,
-                heading: head,
-                description: descrip,
-              }),
-            });
-            const res = await result.json();
+            const res = await addTodoApiCall(userId, head, descrip);
             addItem({ id: res.id, heading: head, description: descrip });
             setShowButton(true);
             setTodoInput(false);
