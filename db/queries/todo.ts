@@ -3,8 +3,8 @@ import {db} from '../index';
 import {todos} from "../schema";
 
 
-export async function getAllTodos() {
-    const res = await db.select().from(todos);
+export async function getAllTodos(userId : string) {
+    const res = await db.select().from(todos).where(eq(todos.userId, userId));
 
     return res;
 

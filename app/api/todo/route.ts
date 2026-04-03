@@ -11,8 +11,10 @@ export async function POST(request : NextRequest) {
 }
 
 // GET /api/todo
-export async function GET() {
-    const result = await getAllTodos();
+export async function GET(req: NextRequest) {
+    const {searchParams} = new URL(req.url);
+    const userId = searchParams.get("userId") || "";
+    const result = await getAllTodos(userId);
     return NextResponse.json(result);
 }
 // DELETE /api/todo

@@ -1,5 +1,5 @@
-export async function getAllTodos() {
-    const response = await fetch("/api/todo");
+export async function getAllTodos(userId: string) {
+    const response = await fetch(`/api/todo?userId=${userId}`);
     const data = await response.json();
     return data;
 }

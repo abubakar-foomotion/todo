@@ -2,12 +2,15 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { useUserStore } from "@/lib/store/userStore";
 
 export default function Welcome() {
   const [signIn, setSignIn] = useState<boolean>(true);
   const [email, setEmail] = useState<string>("");
   const [name, setName] = useState<string>("");
   const router = useRouter();
+
+  const { setId } = useUserStore();
 
   async function handleSignInAndSignUp(e: React.MouseEvent<HTMLButtonElement>) {
     e.preventDefault();
@@ -23,6 +26,10 @@ export default function Welcome() {
         });
         const jsonResponse = await res.json();
         if (jsonResponse.user !== undefined) {
+          console.log(jsonResponse.user);
+          // set the user id in the store
+          setId(jsonResponse.user.id);
+          // redirect to todo page
           router.push("/todo");
         } else {
           console.log("User not found");
@@ -44,6 +51,9 @@ export default function Welcome() {
         });
         const jsonResponse = await res.json();
         if (jsonResponse.user !== undefined) {
+          // set the user id in the store
+          setId(jsonResponse.user.id);
+          // redirect to todo page
           router.push("/todo");
         } else {
           console.log("Sign up failed");

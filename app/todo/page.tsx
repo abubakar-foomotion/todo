@@ -4,12 +4,14 @@ import TodoInput from "@/components/TodoInput";
 import { useEffect, useState } from "react";
 import { useItemsStore } from "@/lib/store/todoStore";
 import { getAllTodos, updateTodo } from "@/services/todos";
+import { useUserStore } from "@/lib/store/userStore";
 
 export default function Todo() {
   //STATES
   const [showButton, setShowButton] = useState<boolean>(true);
   const [showTodoInput, setTodoInput] = useState<boolean>(false);
   const [udpdateId, setUdpateId] = useState<string>("");
+  const { userId } = useUserStore();
 
   //EVENT HANDLER
   function addTodo(): void {
@@ -22,7 +24,7 @@ export default function Todo() {
   //GETTING THE TODO ITEMS FROM DB ON RENDER
   useEffect(() => {
     async function fetchData() {
-      const res = await getAllTodos();
+      const res = await getAllTodos(userId);
       setItems(res);
     }
     fetchData();
@@ -99,7 +101,7 @@ export default function Todo() {
           heading=""
           onClickFunction={async (head, descrip) => {
             //TODO: REPLACE THE HARDCODED USERID WITH DYNAMIC ONE
-            const userId = "d94ae1d3-8f9a-4699-a761-b4eabee29a48";
+            // const userId = "d94ae1d3-8f9a-4699-a761-b4eabee29a48";
             //it should return an id of the added todo
             console.log("before adding todo,,,,,,,...........>!!!!!!");
             const result= await fetch("/api/todo", {
