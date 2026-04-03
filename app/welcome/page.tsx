@@ -28,6 +28,7 @@ export default function Welcome() {
           router.push("/todo");
         } else {
           console.log("User not found");
+          alert("User not found. Please check your credentials or sign up.");
         }
       } catch (error) {
         console.log(error);
@@ -43,6 +44,7 @@ export default function Welcome() {
           router.push("/todo");
         } else {
           console.log("Sign up failed");
+          alert("Sign up failed. Please try again.");
         }
       } catch (error) {
         console.log(error);
