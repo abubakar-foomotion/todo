@@ -38,7 +38,7 @@ export default function Todo() {
 
       {/* NEWER VERSION */}
       {items.length > 0 && (
-        <div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 p-4">
           {items.map(({ heading, description, id }) => {
             if (id === udpdateId) {
               return (
@@ -67,7 +67,7 @@ export default function Todo() {
             }
             return (
               <div
-                className="border border-gray-400 rounded-lg p-2 m-4 bg-gray-200"
+                className="border border-gray-400 rounded-lg p-2 bg-gray-200 "
                 key={id}
               >
                 <h3>{heading}</h3>
@@ -76,7 +76,7 @@ export default function Todo() {
                   onClick={() => setUdpateId(id)}
                   className="border rounded-md mt-4 p-1 lg:ml-4 lg:w-20"
                 >
-                  UPDATE.!
+                  UPDATE
                 </p>
                 <span
                   onClick={async () => {
