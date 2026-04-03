@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { useItemsStore } from "@/lib/store/todoStore";
 import { getAllTodos, updateTodo, addTodoApiCall } from "@/services/todos";
 import { useUserStore } from "@/lib/store/userStore";
+import CustomButton from "@/components/CustomButton";
 
 export default function Todo() {
   //STATES
@@ -71,14 +72,7 @@ export default function Todo() {
 
       {/* //BUTTON TO SHOW TODO INPUT */}
       {showButton && (
-        <button
-          type="button"
-          onClick={addTodo}
-          className="border rounded-md mt-4 p-1 lg:ml-4 lg:w-24"
-        >
-          {" "}
-          + Add Task
-        </button>
+        <CustomButton onClickFunction={addTodo} text="+ Add Task" />
       )}
 
       {/* //TODO INPUT COMPONENT FOR NEW ENTRY*/}

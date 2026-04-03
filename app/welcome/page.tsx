@@ -4,6 +4,8 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useUserStore } from "@/lib/store/userStore";
 import { postNewUser, getExistingUser } from "@/services/todos";
+import CustomButton from "@/components/CustomButton";
+import { text } from "stream/consumers";
 
 export default function Welcome() {
   const [signIn, setSignIn] = useState<boolean>(true);
@@ -79,16 +81,17 @@ export default function Welcome() {
           onChange={(e) => setName(e.target.value)}
           className="border p-1 rounded-md"
         />
-        <button
-          className="border rounded-md mt-4 p-1 lg:ml-4 lg:w-20"
-          type="button"
-          onClick={handleSignInAndSignUp}
-        >
-          Enter
-        </button>
+        <CustomButton onClickFunction={handleSignInAndSignUp} text="Enter"/>
       </div>
+      <CustomButton
+        onClickFunction={(e: React.MouseEvent<HTMLButtonElement>) => {
+          e.preventDefault();
+          setSignIn((prev) => !prev);
+        }}
+        text={signIn ? "Create Account if not." : "Already have an account?"}
+      />
 
-      <button
+      {/* <button
         type="button"
         onClick={(e) => {
           e.preventDefault();
@@ -96,7 +99,7 @@ export default function Welcome() {
         }}
       >
         {signIn ? "Create Account if not." : "Already have an account?"}
-      </button>
+      </button> */}
     </div>
   );
 }
