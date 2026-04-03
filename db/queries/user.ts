@@ -18,8 +18,13 @@ export async function checkUser(email: string, name:string) {
     
 }
 
-export async function addUser() {
-    const name = "John Doe";
-    const email = "john@doe.com";
-    await db.insert(users).values({ name, email });
+export async function addUser(email: string, name: string) {
+    const user = await checkUser(email, name);
+    if(user) {
+      return user;
+    }
+    else {
+      const newUser = await db.insert(users).values({email, name}).returning();
+      return newUser[0];
+    }
 }

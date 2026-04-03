@@ -1,11 +1,14 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function Welcome() {
   const [signIn, setSignIn] = useState<boolean>(true);
   const [email, setEmail] = useState<string>("");
   const [name, setName] = useState<string>("");
+  const router = useRouter();
+
   async function handleSignInAndSignUp(e: React.MouseEvent<HTMLButtonElement>) {
     e.preventDefault();
     if (signIn) {
@@ -16,9 +19,14 @@ export default function Welcome() {
           headers: {
             "content-type": "application/json",
           },
-          body: JSON.stringify({ email, name }),
+          body: JSON.stringify({ email, name, type: "signIn" }),
         });
         const jsonResponse = await res.json();
+        if (jsonResponse.user !== undefined) {
+          router.push("/todo");
+        } else {
+          console.log("User not found");
+        }
       } catch (error) {
         console.log(error);
         console.log("Error fetching user data");
@@ -26,7 +34,24 @@ export default function Welcome() {
     } else {
       // sign up logic
       console.log("SIGN UP LOGIC");
-      
+      try {
+        const res = await fetch("/api/user", {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify({ email, name, type: "signUp" }),
+        });
+        const jsonResponse = await res.json();
+        if (jsonResponse.user !== undefined) {
+          router.push("/todo");
+        } else {
+          console.log("Sign up failed");
+        }
+      } catch (error) {
+        console.log(error);
+        console.log("Error fetching user data");
+      }
     }
   }
 
@@ -35,7 +60,7 @@ export default function Welcome() {
       <h1 className="text-center">
         {signIn === true ? "sign in" : "sign up"}{" "}
       </h1>
-      <form>
+      <div>
         <label htmlFor="email" className="m-4">
           Enter Email
         </label>
@@ -58,10 +83,10 @@ export default function Welcome() {
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
-      </form>
-      <button className="m-4" onClick={handleSignInAndSignUp}>
-        Enter
-      </button>
+        <button className="m-4" type="button" onClick={handleSignInAndSignUp}>
+          Enter
+        </button>
+      </div>
 
       <button
         type="button"
@@ -70,7 +95,7 @@ export default function Welcome() {
           setSignIn((prev) => !prev);
         }}
       >
-        Create Account if not.!
+        {signIn ? "Create Account if not." : "Already have an account?"}
       </button>
     </div>
   );

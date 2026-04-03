@@ -6,7 +6,7 @@ export async function POST(request: NextRequest) {
   const req = await request.json();
   const { name, email, type } = req;
 
-  if (type === "signin") {
+  if (type === "signIn") {
     const user = await checkUser(email, name);
     if (user) {
       return NextResponse.json({ result: "User exists", user });
@@ -15,4 +15,10 @@ export async function POST(request: NextRequest) {
     }
   }
   //sign up logic
+  const newUser = await addUser(email, name);
+  if (newUser) {
+    return NextResponse.json({ result: "User created", user: newUser });
+  } else {
+    return NextResponse.json({ result: "Failed to create user" });
+  }
 }

@@ -3,7 +3,6 @@
 import TodoInput from "@/components/TodoInput";
 import { useEffect, useState } from "react";
 import { useItemsStore } from "@/lib/store/todoStore";
-import { uuid } from "drizzle-orm/gel-core";
 import { getAllTodos, updateTodo } from "@/services/todos";
 
 export default function Todo() {
