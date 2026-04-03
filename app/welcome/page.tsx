@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useUserStore } from "@/lib/store/userStore";
+import { postNewUser, getExistingUser } from "@/services/todos";
 
 export default function Welcome() {
   const [signIn, setSignIn] = useState<boolean>(true);
@@ -15,16 +16,8 @@ export default function Welcome() {
   async function handleSignInAndSignUp(e: React.MouseEvent<HTMLButtonElement>) {
     e.preventDefault();
     if (signIn) {
-      // sign in logic
       try {
-        const res = await fetch("/api/user", {
-          method: "POST",
-          headers: {
-            "content-type": "application/json",
-          },
-          body: JSON.stringify({ email, name, type: "signIn" }),
-        });
-        const jsonResponse = await res.json();
+        const jsonResponse = await getExistingUser(name, email);
         if (jsonResponse.user !== undefined) {
           console.log(jsonResponse.user);
           // set the user id in the store
@@ -39,17 +32,8 @@ export default function Welcome() {
         console.log("Error fetching user data");
       }
     } else {
-      // sign up logic
-      console.log("SIGN UP LOGIC");
       try {
-        const res = await fetch("/api/user", {
-          method: "POST",
-          headers: {
-            "content-type": "application/json",
-          },
-          body: JSON.stringify({ email, name, type: "signUp" }),
-        });
-        const jsonResponse = await res.json();
+        const jsonResponse = await postNewUser(name, email);
         if (jsonResponse.user !== undefined) {
           // set the user id in the store
           setId(jsonResponse.user.id);
@@ -95,7 +79,11 @@ export default function Welcome() {
           onChange={(e) => setName(e.target.value)}
           className="border p-1 rounded-md"
         />
-        <button className="border rounded-md mt-4 p-1 lg:ml-4 lg:w-20" type="button" onClick={handleSignInAndSignUp}>
+        <button
+          className="border rounded-md mt-4 p-1 lg:ml-4 lg:w-20"
+          type="button"
+          onClick={handleSignInAndSignUp}
+        >
           Enter
         </button>
       </div>
