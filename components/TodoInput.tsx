@@ -36,7 +36,6 @@ export default function TodoInput({
         <input
           type="text"
           placeholder="DESCRIPTION"
-          // ref={descriptionRef}
           value={descrip}
           onChange={(e) => setDiscrip(e.target.value)}
           className="p-1 border rounded-md"

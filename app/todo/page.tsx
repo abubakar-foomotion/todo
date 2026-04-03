@@ -47,7 +47,6 @@ export default function Todo() {
                   heading={heading}
                   description={description}
                   onClickFunction={async (head, descrip) => {
-                    // updateTodo(id,head,descrip);
                     await fetch("/api/todo", {
                       method: "PUT",
                       headers: {
@@ -102,7 +101,7 @@ export default function Todo() {
 
       {/* //BUTTON TO SHOW TODO INPUT */}
       {showButton && (
-        <button type="button" onClick={addTodo}>
+        <button type="button" onClick={addTodo} className="border rounded-md mt-4 p-1 lg:ml-4 lg:w-24">
           {" "}
           + Add Task
         </button>
@@ -114,10 +113,6 @@ export default function Todo() {
           description=""
           heading=""
           onClickFunction={async (head, descrip) => {
-            //TODO: REPLACE THE HARDCODED USERID WITH DYNAMIC ONE
-            // const userId = "d94ae1d3-8f9a-4699-a761-b4eabee29a48";
-            //it should return an id of the added todo
-            console.log("before adding todo,,,,,,,...........>!!!!!!");
             const result = await fetch("/api/todo", {
               method: "POST",
               headers: {
@@ -135,7 +130,6 @@ export default function Todo() {
             setTodoInput(false);
           }}
         />
-        // />
       )}
     </div>
   );
