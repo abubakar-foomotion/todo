@@ -5,7 +5,6 @@ import { useState } from "react";
 import { useUserStore } from "@/lib/store/userStore";
 import { postNewUser, getExistingUser } from "@/services/todos";
 import CustomButton from "@/components/CustomButton";
-import { text } from "stream/consumers";
 
 export default function Welcome() {
   const [signIn, setSignIn] = useState<boolean>(true);
@@ -15,7 +14,7 @@ export default function Welcome() {
 
   const { setId } = useUserStore();
 
-  async function handleSignInAndSignUp(e: React.MouseEvent<HTMLButtonElement>) {
+  async function handleSignInAndSignUp(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (signIn) {
       try {
@@ -58,7 +57,7 @@ export default function Welcome() {
       <h1 className="text-center">
         {signIn === true ? "sign in" : "sign up"}{" "}
       </h1>
-      <div className="px-4 py-2 flex flex-col justify-center items-center mt-4 mb-4 lg:flex-row">
+      <form onSubmit={(e : React.FormEvent<HTMLFormElement>) => handleSignInAndSignUp(e)} className="px-4 py-2 flex flex-col justify-center items-center mt-4 mb-4 lg:flex-row">
         <label htmlFor="email" className="m-4">
           Enter Email
         </label>
@@ -83,8 +82,8 @@ export default function Welcome() {
           onChange={(e) => setName(e.target.value)}
           className="border p-1 rounded-md"
         />
-        <CustomButton onClickFunction={handleSignInAndSignUp} text="Enter"/>
-      </div>
+        <CustomButton onClickFunction={()=>{}} text="Enter" />
+      </form>
       <CustomButton
         onClickFunction={(e: React.MouseEvent<HTMLButtonElement>) => {
           e.preventDefault();
