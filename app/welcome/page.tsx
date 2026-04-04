@@ -87,20 +87,12 @@ export default function Welcome() {
       <CustomButton
         onClickFunction={(e: React.MouseEvent<HTMLButtonElement>) => {
           e.preventDefault();
+          setEmail("");
+          setName("");
           setSignIn((prev) => !prev);
         }}
         text={signIn ? "Create Account if not." : "Already have an account?"}
       />
-
-      {/* <button
-        type="button"
-        onClick={(e) => {
-          e.preventDefault();
-          setSignIn((prev) => !prev);
-        }}
-      >
-        {signIn ? "Create Account if not." : "Already have an account?"}
-      </button> */}
     </div>
   );
 }
