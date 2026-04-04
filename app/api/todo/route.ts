@@ -3,21 +3,19 @@ import { db } from "@/db/index";
 import { todos } from "@/db/schema";
 import { NextResponse , NextRequest} from "next/server";
 
-// POST /api/todo
 export async function POST(request : NextRequest) {
     const {userId, heading, description} = await request.json();
     const insertedObj = await addTodo(userId,heading, description);
     return NextResponse.json(insertedObj);
 }
 
-// GET /api/todo
 export async function GET(req: NextRequest) {
     const {searchParams} = new URL(req.url);
     const userId = searchParams.get("userId") || "";
     const result = await getAllTodos(userId);
     return NextResponse.json(result);
 }
-// DELETE /api/todo
+
 export async function DELETE(request: NextRequest) {
     const { id } = await request.json();
     await deleteTodo(id);

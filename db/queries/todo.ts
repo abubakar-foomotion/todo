@@ -2,12 +2,9 @@ import { eq } from 'drizzle-orm';
 import {db} from '../index';
 import {todos} from "../schema";
 
-
 export async function getAllTodos(userId : string) {
     const res = await db.select().from(todos).where(eq(todos.userId, userId));
-
     return res;
-
 }
 
 export async function addTodo(userId: string, heading: string, description: string) {

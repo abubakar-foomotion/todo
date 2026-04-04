@@ -1,7 +1,7 @@
 import { addUser, checkUser } from "@/db/queries/user";
 import { NextRequest, NextResponse } from "next/server";
 
-// GET /api/user
+// POST /api/user
 export async function POST(request: NextRequest) {
   const req = await request.json();
   const { name, email, type } = req;

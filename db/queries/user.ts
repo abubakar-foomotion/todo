@@ -1,8 +1,6 @@
-
 import {db} from '../index';
 import {users} from '../schema';
 import { eq, and ,desc} from "drizzle-orm";
-
 
 export async function checkUser(email: string, name:string) {
     const user = await db
@@ -14,8 +12,7 @@ export async function checkUser(email: string, name:string) {
       eq(users.name, name)
     )
   );
-    return user.length > 0 ? user[0] : null;
-    
+    return user.length > 0 ? user[0] : null; 
 }
 
 export async function addUser(email: string, name: string) {

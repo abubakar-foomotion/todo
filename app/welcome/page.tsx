@@ -1,11 +1,8 @@
 "use client";
-
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-
 import { useUserStore } from "@/lib/store/userStore";
 import { postNewUser, getExistingUser } from "@/services/todos";
-
 import CustomButton from "@/components/CustomButton";
 
 export default function Welcome() {
@@ -13,7 +10,6 @@ export default function Welcome() {
   const [email, setEmail] = useState<string>("");
   const [name, setName] = useState<string>("");
   const router = useRouter();
-
   const { setId } = useUserStore();
 
   async function handleSignInAndSignUp(e: React.FormEvent<HTMLFormElement>) {
@@ -23,9 +19,7 @@ export default function Welcome() {
         const jsonResponse = await getExistingUser(name, email);
         if (jsonResponse.user !== undefined) {
           console.log(jsonResponse.user);
-          // set the user id in the store
           setId(jsonResponse.user.id);
-          // redirect to todo page
           router.push("/todo");
         } else {
           console.log("User not found");
@@ -44,9 +38,7 @@ export default function Welcome() {
         }
         const jsonResponse = await postNewUser(name, email);
         if (jsonResponse.user !== undefined) {
-          // set the user id in the store
           setId(jsonResponse.user.id);
-          // redirect to todo page
           router.push("/todo");
         } else {
           console.log("Sign up failed");
