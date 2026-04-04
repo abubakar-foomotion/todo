@@ -2,8 +2,10 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+
 import { useUserStore } from "@/lib/store/userStore";
 import { postNewUser, getExistingUser } from "@/services/todos";
+
 import CustomButton from "@/components/CustomButton";
 
 export default function Welcome() {
@@ -35,6 +37,11 @@ export default function Welcome() {
       }
     } else {
       try {
+        const checkForExistingUser = await getExistingUser(name, email);
+        if (checkForExistingUser.user !== undefined) {
+          alert("User already exists. Please sign in instead.");
+          return;
+        }
         const jsonResponse = await postNewUser(name, email);
         if (jsonResponse.user !== undefined) {
           // set the user id in the store
