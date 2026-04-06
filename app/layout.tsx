@@ -11,7 +11,7 @@ export default function RootLayout({
   const { userId } = useUserStore();
   return (
     <html lang="en">
-      <body>{userId === "" ? <Welcome /> : <div>{children}</div>}</body>
+      <body className="bg-sky-400">{userId === "" ? <Welcome /> : <div>{children}</div>}</body>
     </html>
   );
 

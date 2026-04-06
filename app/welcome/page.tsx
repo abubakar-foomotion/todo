@@ -52,7 +52,7 @@ export default function Welcome() {
   }
 
   return (
-    <div className="flex justify-center items-center min-h-screen">
+    <div className="flex justify-center items-center min-h-screen ">
       <div className="p-4 border rounded-lg bg-gray-200">
         <h1 className="text-center">
           {signIn === true ? "sign in" : "sign up"}{" "}
