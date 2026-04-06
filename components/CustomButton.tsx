@@ -6,7 +6,7 @@ export default function CustomButton({onClickFunction,text} : {onClickFunction: 
            <button
           type="submit"
           onClick={onClickFunction}
-          className="border rounded-md mt-4 p-1 lg:ml-4 lg:w-24"
+          className="border rounded-md mt-4 p-1 lg:ml-4 lg:w-24 bg-red"
         >
           {" "}
           {text}

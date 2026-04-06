@@ -29,12 +29,12 @@ export default function Todo() {
 
   return (
     <div>
-      <h1 className="font-bold text-center text-2xl">
-        this is todo Application..!!
+      <h1 className="font-bold text-center text-4xl">
+        TODOLOGYY
       </h1>
 
       {items.length > 0 && (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 p-4">
+        <div className="grid grid-cols-1 gap-4 p-4">
           {items.map(({ heading, description, id }) => {
             if (id === udpdateId) {
               return (
@@ -43,8 +43,9 @@ export default function Todo() {
                   heading={heading}
                   description={description}
                   onClickFunction={async (head, descrip) => {
-                    await updateTodo(id, head, descrip);
-                    updateItem(id, { heading: head, description: descrip });
+                    const updatedData = await updateTodo(id, head, descrip);
+                    const {description, heading} = updatedData;
+                    updateItem(id, { heading: heading, description: description });
                     setUdpateId("");
                   }}
                 />

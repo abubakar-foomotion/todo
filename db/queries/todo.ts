@@ -13,9 +13,11 @@ export async function addTodo(userId: string, heading: string, description: stri
 }
 
 export async function deleteTodo(id:string) {
-    await db.delete(todos).where(eq(todos.id, id));
+    const deletedData = await db.delete(todos).where(eq(todos.id, id)).returning();
+    return deletedData[0];
 }
 
 export async function updateTodo(id:string, heading:string, description:string) {
-    await db.update(todos).set({heading, description}).where(eq(todos.id, id));
+    const updatedData = await db.update(todos).set({heading, description}).where(eq(todos.id, id)).returning();
+    return updatedData[0];
 }

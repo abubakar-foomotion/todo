@@ -29,7 +29,7 @@ export async function updateTodo(
   heading: string,
   description: string,
 ) {
-  await fetch("/api/todo", {
+  const res = await fetch("/api/todo", {
     method: "PUT",
     headers: {
       "content-type": "application/json",
@@ -40,10 +40,12 @@ export async function updateTodo(
       description: description,
     }),
   });
+  const updatedData = await res.json();
+  return updatedData.data;
 }
 
 export async function deleteTodo(id: string) {
-  await fetch("/api/todo", {
+  const deletedData = await fetch("/api/todo", {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
@@ -52,6 +54,7 @@ export async function deleteTodo(id: string) {
       id: id,
     }),
   });
+  return deletedData;
 }
 
 export async function postNewUser(name: string, email: string) {
