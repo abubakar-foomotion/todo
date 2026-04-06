@@ -52,46 +52,53 @@ export default function Welcome() {
   }
 
   return (
-    <div className="p-4 m-4 border rounded-lg bg-gray-200">
-      <h1 className="text-center">
-        {signIn === true ? "sign in" : "sign up"}{" "}
-      </h1>
-      <form onSubmit={(e : React.FormEvent<HTMLFormElement>) => handleSignInAndSignUp(e)} className="px-4 py-2 flex flex-col justify-center items-center mt-4 mb-4 lg:flex-row">
-        <label htmlFor="email" className="m-4">
-          Enter Email
-        </label>
-        <input
-          type="email"
-          placeholder="Email"
-          required
-          id="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className="p-1 border rounded-md"
+    <div className="flex justify-center items-center min-h-screen">
+      <div className="p-4 border rounded-lg bg-gray-200">
+        <h1 className="text-center">
+          {signIn === true ? "sign in" : "sign up"}{" "}
+        </h1>
+        <form
+          onSubmit={(e: React.FormEvent<HTMLFormElement>) =>
+            handleSignInAndSignUp(e)
+          }
+          className="px-4 py-2 flex flex-col justify-center items-center mt-4 mb-4"
+        >
+          <label htmlFor="email" className="m-4">
+            Enter Email
+          </label>
+          <input
+            type="email"
+            placeholder="Email"
+            required
+            id="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="p-1 border rounded-md"
+          />
+          <label htmlFor="name" className="m-4">
+            Enter Name
+          </label>
+          <input
+            type="text"
+            placeholder="name"
+            id="name"
+            required
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            className="border p-1 rounded-md"
+          />
+          <CustomButton onClickFunction={() => {}} text="Enter" />
+        </form>
+        <CustomButton
+          onClickFunction={(e: React.MouseEvent<HTMLButtonElement>) => {
+            e.preventDefault();
+            setEmail("");
+            setName("");
+            setSignIn((prev) => !prev);
+          }}
+          text={signIn ? "Create Account if not." : "Already have an account?"}
         />
-        <label htmlFor="name" className="m-4">
-          Enter Name
-        </label>
-        <input
-          type="text"
-          placeholder="name"
-          id="name"
-          required
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          className="border p-1 rounded-md"
-        />
-        <CustomButton onClickFunction={()=>{}} text="Enter" />
-      </form>
-      <CustomButton
-        onClickFunction={(e: React.MouseEvent<HTMLButtonElement>) => {
-          e.preventDefault();
-          setEmail("");
-          setName("");
-          setSignIn((prev) => !prev);
-        }}
-        text={signIn ? "Create Account if not." : "Already have an account?"}
-      />
+      </div>
     </div>
   );
 }
