@@ -27,7 +27,7 @@ export default function TodoInput({
           placeholder="HEADING"
           value={head}
           onChange={(e)=>setHead(e.target.value)}
-          className="p-1 border rounded-md w-l sm:w-32 lg:w-36"
+          className="p-1 border rounded-md w-l sm:w-xl md:w-2xl "
         />
         <h3>write Description</h3>
         <input
@@ -35,7 +35,7 @@ export default function TodoInput({
           placeholder="DESCRIPTION"
           value={descrip}
           onChange={(e) => setDiscrip(e.target.value)}
-          className="p-1 border rounded-md w-l sm:w-32 lg:w-36"
+          className="p-1 border rounded-md w-l sm:w-xl md:w-2xl"
         />
         <br />
         <button type="button" onClick={() => onClickFunction(head, descrip)} className="border rounded-md mt-4 p-1 lg:ml-4 lg:w-20">
