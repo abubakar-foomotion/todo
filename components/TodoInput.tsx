@@ -39,9 +39,8 @@ export default function TodoInput({
         />
         <br />
         <button type="button" onClick={() => onClickFunction(head, descrip)} className="border rounded-md mt-4 p-1 lg:ml-4 lg:w-20">
-          ADD
+          UPDATE
         </button>
-        {/* <CustomButton onClickFunction={()=>onClickFunction(head, descrip)} text="ADD" /> */}
       </form>
     </div>
   );

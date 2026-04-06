@@ -23,7 +23,7 @@ export default function TodoCard({
       </div>
       <p
         onClick={() => updateFunction(id)}
-        className="border rounded-md mt-4 p-1 lg:ml-4 lg:w-20"
+        className="border rounded-md mt-4 p-1 lg:ml-4 lg:w-20 hover:bg-sky-200"
       >
         UPDATE
       </p>
