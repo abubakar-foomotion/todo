@@ -1,4 +1,5 @@
 "use client";
+import { deleteTodo } from "@/services/todos";
 
 interface TodoCardProps {
   id: string;
@@ -15,6 +16,7 @@ export default function TodoCard({
   deleteFunction,
   updateFunction,
 }: TodoCardProps) {
+
   return (
     <div className="border border-gray-400 rounded-lg p-2 bg-gray-200 ">
       <div className="border p-4 rounded-lg shadow-xl">
@@ -29,7 +31,7 @@ export default function TodoCard({
       </p>
       <span
         onClick={async () => {
-          //
+          await deleteTodo(id);
           deleteFunction(id);
         }}
       >
