@@ -1,18 +1,13 @@
 "use client";
-import { useUserStore } from "@/lib/store/userStore";
 
-import "./globals.css";
-import Welcome from "./welcome/page";
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  const { userId } = useUserStore();
+import { SessionProvider } from "next-auth/react";
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
-      <body>{userId === "" ? <Welcome /> : <div>{children}</div>}</body>
+    <html>
+      <body>
+        <SessionProvider>{children}</SessionProvider>
+      </body>
     </html>
   );
-
 }
