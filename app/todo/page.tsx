@@ -43,8 +43,9 @@ export default function Todo() {
                   heading={heading}
                   description={description}
                   onClickFunction={async (head, descrip) => {
-                    await updateTodo(id, head, descrip);
-                    updateItem(id, { heading: head, description: descrip });
+                    const updatedData = await updateTodo(id, head, descrip);
+                    const {description, heading} = updatedData;
+                    updateItem(id, { heading: heading, description: description });
                     setUdpateId("");
                   }}
                 />
