@@ -1,5 +1,6 @@
 "use client";
 import { deleteTodo } from "@/services/todos";
+import Image from "next/image";
 
 interface TodoCardProps {
   id: string;
@@ -16,27 +17,33 @@ export default function TodoCard({
   deleteFunction,
   updateFunction,
 }: TodoCardProps) {
-
   return (
-    <div className="border border-gray-400 rounded-lg p-2 bg-gray-200 ">
-      <div className="border p-4 rounded-lg shadow-xl">
-        <h3 className="text-2xl sm:text-4xl font-extrabold italic">HEADING : {heading}</h3>
-        <p>DESSCRIPTION : {description}</p>
+    <div className="rounded-lg p-2  flex justify-between bg-[#FFFFFF] shadow-2xl">
+      <div className="p-4">
+        <h3 className="text-2xl sm:text-xl font-bold italic">{heading}</h3>
+        <p>{description}</p>
       </div>
-      <p
-        onClick={() => updateFunction(id)}
-        className="border rounded-md mt-4 p-1 lg:ml-4 lg:w-20 hover:bg-sky-300 w-20"
-      >
-        UPDATE
-      </p>
-      <span
-        onClick={async () => {
-          await deleteTodo(id);
-          deleteFunction(id);
-        }}
-      >
-        &#10060;
-      </span>
+      <div>
+        <div className="flex gap-2 items-center justify-between h-full w-17 mr-8 ">
+          <div className="w-6 h-6 hover:bg-[#FAFAFA]">
+            <Image
+              src="/edit.png"
+              alt="Company Logo"
+              width={100}
+              height={100}
+              onClick={() => updateFunction(id)}
+            />
+            </div>
+          <span
+            onClick={async () => {
+              await deleteTodo(id);
+              deleteFunction(id);
+            }}
+          >
+            &#10060;
+          </span>
+        </div>
+      </div>
     </div>
   );
 }

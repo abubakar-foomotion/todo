@@ -52,8 +52,8 @@ export default function Welcome() {
   }
 
   return (
-    <div className="flex justify-center items-center min-h-screen ">
-      <div className="p-4 border rounded-lg bg-gray-200">
+    <div className="flex justify-center items-center min-h-screen bg-[#FAFAFA]">
+      <div className="p-4 border rounded-lg bg-[#FFFFFF]">
         <h1 className="text-center">
           {signIn === true ? "sign in" : "sign up"}{" "}
         </h1>
@@ -73,7 +73,8 @@ export default function Welcome() {
             id="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="p-1 border rounded-md"
+            // className="p-1 border rounded-md"
+            className="p-1 inset-shadow-sm inset-shadow-indigo-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500  focus:border-transparent w-full"
           />
           <label htmlFor="name" className="m-4">
             Enter Name
@@ -85,7 +86,8 @@ export default function Welcome() {
             required
             value={name}
             onChange={(e) => setName(e.target.value)}
-            className="border p-1 rounded-md"
+            // className="border p-1 rounded-md"
+            className="p-1 inset-shadow-sm inset-shadow-indigo-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500  focus:border-transparent w-full"
           />
           <CustomButton onClickFunction={() => {}} text="Enter" />
         </form>
