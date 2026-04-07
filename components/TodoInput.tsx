@@ -38,7 +38,7 @@ export default function TodoInput({
           className="p-1 border rounded-md w-full"
         />
         <br />
-        <button type="button" onClick={() => onClickFunction(head, descrip)} className="border rounded-md mt-4 p-1 lg:ml-4 lg:w-20 bg-[#6C63FF]">
+        <button type="button" onClick={() => onClickFunction(head, descrip)} className="border rounded-md mt-4 p-1 lg:ml-4 lg:w-20 bg-[#918cf7]">
           UPDATE
         </button>
       </form>

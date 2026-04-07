@@ -89,7 +89,10 @@ export default function Welcome() {
             // className="border p-1 rounded-md"
             className="p-1 inset-shadow-sm inset-shadow-indigo-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500  focus:border-transparent w-full"
           />
-          <CustomButton onClickFunction={() => {}} text="Enter" />
+          <CustomButton
+            onClickFunction={() => {}}
+            text={signIn === true ? "sign in" : "sign up"}
+          />
         </form>
         <CustomButton
           onClickFunction={(e: React.MouseEvent<HTMLButtonElement>) => {
