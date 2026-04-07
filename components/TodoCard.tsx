@@ -6,8 +6,8 @@ interface TodoCardProps {
   id: string;
   heading: string;
   description: string;
-  deleteFunction: (id: string) => void;
-  updateFunction: (id: string) => void;
+  deleteFunction: () => void;
+  updateFunction: () => void;
 }
 
 export default function TodoCard({
@@ -31,13 +31,13 @@ export default function TodoCard({
               alt="Company Logo"
               width={100}
               height={100}
-              onClick={() => updateFunction(id)}
+              onClick={() => updateFunction()}
             />
             </div>
           <span
             onClick={async () => {
               await deleteTodo(id);
-              deleteFunction(id);
+              deleteFunction();
             }}
           >
             &#10060;
